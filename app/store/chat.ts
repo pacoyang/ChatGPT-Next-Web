@@ -281,7 +281,7 @@ export const useChatStore = createPersistStore(
 
         const botMessage: ChatMessage = createMessage({
           role: "assistant",
-          streaming: true,
+          streaming: false,
           model: modelConfig.model,
         });
 
@@ -312,9 +312,9 @@ export const useChatStore = createPersistStore(
         // make request
         api.llm.chat({
           messages: sendMessages,
-          config: { ...modelConfig, stream: true },
+          config: { ...modelConfig, stream: false },
           onUpdate(message) {
-            botMessage.streaming = true;
+            botMessage.streaming = false;
             if (message) {
               botMessage.content = message;
             }
@@ -567,7 +567,7 @@ export const useChatStore = createPersistStore(
             ),
             config: {
               ...modelConfig,
-              stream: true,
+              stream: false,
               model: getSummarizeModel(session.mask.modelConfig.model),
             },
             onUpdate(message) {
