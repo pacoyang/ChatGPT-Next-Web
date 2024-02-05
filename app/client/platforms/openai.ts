@@ -226,6 +226,11 @@ export class ChatGPTApi implements LLMApi {
         clearTimeout(requestTimeoutId);
 
         const resJson = await res.json();
+
+        if (!res.ok) {
+          throw new Error(resJson.error.message);
+        }
+
         const message = this.extractMessage(resJson);
         options.onFinish(message);
       }
